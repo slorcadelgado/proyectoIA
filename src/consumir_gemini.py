@@ -5,9 +5,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 #Constantes
-MODELO = "gemini-flash-latest"
+MODELO = "gemini-3.6-flash"
 URL_BASE = "https://generativelanguage.googleapis.com/v1beta/models/"
 API_KEY = os.getenv("GEMINI_API_KEY")
+PRECIO_ENTRADA = 0.00000075
+PRECIO_SALIDA = 0.00000375
 
 #Función para crear la solicitud
 def armar_peticion(pregunta):
@@ -50,9 +52,22 @@ def extraer_texto(datos):
 def obtener_dato_de_prueba(pregunta):
     url, body = armar_peticion(pregunta)
     datos = enviar_peticion(url, body)
+    costo = calcular_costo(datos, PRECIO_ENTRADA, PRECIO_SALIDA)
+    print(f"Costo de la petición: ${costo:.6f} USD")
     return extraer_texto(datos)
 
+def calcular_costo(datos: dict, precio_entrada: float, precio_salida: float) -> float:
+    try:
+        uso = datos["usageMetadata"]
+        tokens_entrada = uso["promptTokenCount"] if "promptTokenCount" in uso else 0
+        tokens_salida = uso["candidatesTokenCount"] if "candidatesTokenCount" in uso else 0
+        tokens_razonamiento = uso["thoughtsTokenCount"] if "thoughtsTokenCount" in uso else 0
+        costo = (tokens_entrada * precio_entrada) + ((tokens_salida + tokens_razonamiento) * precio_salida)
+        return costo
+    except (KeyError, IndexError):
+        raise RuntimeError("No se pudo calcular el costo debido a la falta de información en la respuesta")
+
 try:
-    print(obtener_dato_de_prueba("Confirma en una frase corta que esta conexión funciona"))
+    print(obtener_dato_de_prueba("Esta mañana me quedé dormido más de la cuenta, así que tuve que volver a programar la reunión que tenía con mi jefe y enviarle un mensaje de texto para avisarle que iba a llegar tarde."))
 except (ValueError, RuntimeError) as e:
     print(f"Error: {e}")
