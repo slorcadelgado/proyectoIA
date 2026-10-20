@@ -46,8 +46,8 @@ def enviar_peticion(url, body):
 def extraer_texto(datos):
     try:
         return datos["candidates"][0]["content"]["parts"][0]["text"]
-    except (KeyError, IndexError):
-        raise RuntimeError("La respuesta no recibe el texto generado en el lugar esperado")
+    except (KeyError, IndexError) as e:
+        raise RuntimeError(f"La respuesta no recibe el texto generado en el lugar esperado: {e}")
 
 def obtener_dato_de_prueba(pregunta):
     url, body = armar_peticion(pregunta)
@@ -64,10 +64,10 @@ def calcular_costo(datos: dict, precio_entrada: float, precio_salida: float) -> 
         tokens_razonamiento = uso["thoughtsTokenCount"] if "thoughtsTokenCount" in uso else 0
         costo = (tokens_entrada * precio_entrada) + ((tokens_salida + tokens_razonamiento) * precio_salida)
         return costo
-    except (KeyError, IndexError):
-        raise RuntimeError("No se pudo calcular el costo debido a la falta de información en la respuesta")
+    except (KeyError, IndexError) as e:
+        raise RuntimeError(f"No se pudo calcular el costo debido a la falta de información en la respuesta: {e}")
 
 try:
-    print(obtener_dato_de_prueba("Esta mañana me quedé dormido más de la cuenta, así que tuve que volver a programar la reunión que tenía con mi jefe y enviarle un mensaje de texto para avisarle que iba a llegar tarde."))
+    print(obtener_dato_de_prueba("Confirma si la conexión con Gemini funciona correctamente."))
 except (ValueError, RuntimeError) as e:
     print(f"Error: {e}")
