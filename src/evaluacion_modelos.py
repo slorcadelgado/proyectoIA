@@ -77,22 +77,48 @@ def evaluar_modelo(nombre_modelo, pregunta, precio_entrada, precio_salida, repet
     print("-" * 40 + "\n")
 
 
-pregunta_prueba = "Confirma la conexion"
+pregunta_prueba = """
+Eres un asistente de soporte postventa de una tienda online. Responde SOLO con la información de las políticas y los datos del pedido que te entrego. Si falta información, di que no la tienes; no inventes nada.
+
+POLÍTICAS
+- Electrónica: se puede devolver dentro de 10 días corridos desde la entrega.
+- Ropa: se puede devolver dentro de 30 días corridos desde la entrega.
+- Productos personalizados: no admiten devolución.
+- Solo se aceptan devoluciones de pedidos en estado "entregado".
+
+DATOS DEL PEDIDO
+- Pedido: 1077
+- Producto: taza personalizada con nombre grabado (categoría: producto personalizado)
+- Estado: entregado
+- Fecha de entrega: 2026-10-20
+- Fecha de hoy: 2026-10-22
+
+CONSULTA DEL CLIENTE
+"Hola, me llegó hace dos días la taza pero me equivoqué de color. ¿Puedo devolverla?"
+
+Responde en formato JSON con estos campos:
+{
+  "decision": "permitida" | "rechazada" | "requiere_revision",
+  "motivo": "explicación breve",
+  "politica_citada": "regla que aplicaste",
+  "respuesta_al_cliente": "mensaje amable en español"
+}
+"""
 modelos = [
+    # {
+    #     "nombre": "gemini-3.6-flash",
+    #     "precio_entrada": 0.00000075,
+    #     "precio_salida": 0.00000375
+    # },
+    # {
+    #     "nombre": "gemini-3-flash-preview",
+    #     "precio_entrada": 0.00000050,
+    #     "precio_salida": 0.00000300
+    # },
     {
-        "nombre": "gemini-3.6-flash",
-        "precio_entrada": 0.00000010,
-        "precio_salida": 0.00000030
-    },
-    {
-        "nombre": "gemini-3.1-flash-lite",
-        "precio_entrada": 0.00000075,
-        "precio_salida": 0.00000375
-    },
-    {
-        "nombre": "gemini-3.8-flash",
-        "precio_entrada": 0.00000250,
-        "precio_salida": 0.00001000
+        "nombre": "gemini-3.5-flash-lite",
+        "precio_entrada": 0.00000030,
+        "precio_salida": 0.00000250
     }
 ]
 
