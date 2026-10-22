@@ -1,5 +1,6 @@
 import os
 import requests
+import time
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -12,10 +13,10 @@ PRECIO_ENTRADA = 0.00000075
 PRECIO_SALIDA = 0.00000375
 
 #Función para crear la solicitud
-def armar_peticion(pregunta):
+def armar_peticion(modelo, pregunta):
     if not pregunta:
         raise ValueError("La pregunta no puede estar vacía")
-    url = f"{URL_BASE}{MODELO}:generateContent?key={API_KEY}"
+    url = f"{URL_BASE}{modelo}:generateContent?key={API_KEY}"
     body = {
         "contents": [{
             "parts": [{
@@ -50,8 +51,11 @@ def extraer_texto(datos):
         raise RuntimeError(f"La respuesta no recibe el texto generado en el lugar esperado: {e}")
 
 def obtener_dato_de_prueba(pregunta):
-    url, body = armar_peticion(pregunta)
+    url, body = armar_peticion(MODELO, pregunta)
+    inicio = time.perf_counter()
     datos = enviar_peticion(url, body)
+    fin = time.perf_counter()
+    print(f"Latencia de la petición: {fin - inicio:.2f} segundos")
     costo = calcular_costo(datos, PRECIO_ENTRADA, PRECIO_SALIDA)
     print(f"Costo de la petición: ${costo:.6f} USD")
     return extraer_texto(datos)
