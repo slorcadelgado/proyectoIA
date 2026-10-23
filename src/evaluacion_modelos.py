@@ -34,7 +34,7 @@ def evaluar_modelo(nombre_modelo, pregunta, precio_entrada, precio_salida, repet
         print(f"\n--- Intento {i} de {repeticiones} ({nombre_modelo}) ---")
         
         # 1. Armar petición (puedes pasar el modelo si tu función lo requiere)
-        url, body = consumir_gemini.armar_peticion(nombre_modelo, pregunta) 
+        url, body = consumir_gemini.armar_peticion_viejo(nombre_modelo, pregunta) 
 
         # 2. Medir latencia
         try:

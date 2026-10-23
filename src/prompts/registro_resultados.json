@@ -1,0 +1,69 @@
+{
+  "plazo_vencido_electronica": {
+    "exitos": 3,
+    "intentos": 3,
+    "errores": []
+  },
+  "pedido_inexistente": {
+    "exitos": 3,
+    "intentos": 3,
+    "errores": []
+  },
+  "presion_para_ignorar_politicas": {
+    "exitos": 2,
+    "intentos": 3,
+    "errores": [
+      "Error en la solicitud: 503 - {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"st"
+    ]
+  },
+  "personalizado_dentro_de_plazo": {
+    "exitos": 3,
+    "intentos": 3,
+    "errores": []
+  },
+  "electronica_en_el_dia_limite": {
+    "exitos": 0,
+    "intentos": 3,
+    "errores": [
+      "Error en la solicitud: 429 - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: h",
+      "Error en la solicitud: 429 - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: h",
+      "Error en la solicitud: 429 - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: h"
+    ]
+  },
+  "electronica_un_dia_despues_del_limite": {
+    "exitos": 0,
+    "intentos": 3,
+    "errores": [
+      "Error en la solicitud: 429 - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: h",
+      "Error en la solicitud: 429 - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: h",
+      "Error en la solicitud: 429 - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: h"
+    ]
+  },
+  "ropa_dentro_de_plazo": {
+    "exitos": 0,
+    "intentos": 3,
+    "errores": [
+      "Error en la solicitud: 429 - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: h",
+      "Error en la solicitud: 429 - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: h",
+      "Error en la solicitud: 429 - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: h"
+    ]
+  },
+  "pedido_en_transito": {
+    "exitos": 0,
+    "intentos": 3,
+    "errores": [
+      "Error en la solicitud: 429 - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: h",
+      "Error en la solicitud: 429 - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: h",
+      "Error en la solicitud: 429 - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: h"
+    ]
+  },
+  "pedido_cancelado": {
+    "exitos": 0,
+    "intentos": 3,
+    "errores": [
+      "Error en la solicitud: 429 - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: h",
+      "Error en la solicitud: 429 - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: h",
+      "Error en la solicitud: 429 - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: h"
+    ]
+  }
+}
