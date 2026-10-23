@@ -14,6 +14,7 @@ Esta es la estructura base que vas a usar como punto de partida para tu proyecto
 ### Windows (PowerShell)
 1. Clona este repositorio utilizando el comando `git clone https://github.com/slorcadelgado/proyectoIA prueba-gate1` y entra a la carpeta con el comando `cd prueba-gate1`.
 2. Crea tu entorno virtual de Python usando el comando `python -m venv venv` en tu terminal y actívalo usando el comando `venv/Scripts/activate`.
+Nota: Si PowerShell te da error al utilizar el comando `venv/Scripts/activate`, ejecuta el comando `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser` para permitir scripts locales solo para tu usuario.
 3. Instala las dependencias del proyecto usando el comando `pip install -r requirements.txt` para poder usarlas en la aplicación.
 4. Copia `.env.example` a un archivo nuevo llamado `.env` usando el comando `Copy-Item .env.example .env` y cambia el valor de `GEMINI_API_KEY` en `.env` por tu API Key.
 5. Ejectua la aplicación usando el comando `python src/consumir_gemini.py`.
@@ -35,4 +36,7 @@ Esta es la estructura base que vas a usar como punto de partida para tu proyecto
 
 ## Registro del ensayo de instalación limpia
  
-- Ensayo de instalación limpia realizado el 23/10/2026, sin hallazgos.
+- Fecha: 23/10/2026
+- Encontrado: La instalación en Windows falló porque PowerShell por defecto no permite ejecutar scripts.
+- Corregido: Se agregó una nota con el comando que se utilizó para arreglar eso.
+- Resultado tras la corrección: Se pudo realizar la ejecución de los distintos programas en Windows.
