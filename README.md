@@ -4,6 +4,12 @@ Esta es la estructura base que vas a usar como punto de partida para tu proyecto
 
 ## Cómo empezar
 
+### Requisitos previos
+
+- Instalar Git.
+- Instalar Python 3.
+- Tener una API Key de Gemini.
+
 ### macOS / Linux / WSL
 1. Clona este repositorio utilizando el comando `git clone https://github.com/slorcadelgado/proyectoIA.git prueba-gate1` y entra a la carpeta con el comando `cd prueba-gate1`.
 2. Crea tu entorno virtual de Python usando el comando `python3 -m venv .venv` en tu terminal y actívalo usando el comando `source .venv/bin/activate`.
