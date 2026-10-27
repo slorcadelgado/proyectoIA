@@ -58,6 +58,13 @@ def enviar_peticion(url, body):
     except requests.exceptions.Timeout as e:
         raise RuntimeError(f"Tiempo de espera agotado: {e}")
     
+    if respuesta.status_code in (401, 403):
+        raise ValueError(f"Credencial inválida o sin permiso. Revisa tu GEMINI_API_KEY.")
+    if respuesta.status_code >= 500:
+        raise TimeoutError(f"El proveedor no pudo procesar la petición. Hay que esperar y reintentar.")
+    if respuesta.status_code == 429:
+        raise TimeoutError(f"Se ha excedido el límite de peticiones. Espera un momento antes de reintentar.")
+    
     if respuesta.status_code != 200:
         raise RuntimeError(f"Error en la solicitud: {respuesta.status_code} - {respuesta.text}")
     
@@ -123,5 +130,5 @@ def parsear_respuesta_json(texto, claves_requeridas=None):
 if __name__ == "__main__":
     try:
         print(obtener_dato_de_prueba("Confirma si la conexión con Gemini funciona correctamente."))
-    except (ValueError, RuntimeError) as e:
+    except (ValueError, RuntimeError, TimeoutError) as e:
         print(f"Error: {e}")
