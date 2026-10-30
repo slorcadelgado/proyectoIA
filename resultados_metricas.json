@@ -1,0 +1,23 @@
+[
+  {
+    "consulta": "¿Cuándo se creó Python?",
+    "respuesta": "Python fue creado por Guido van Rossum y lanzado oficialmente en febrero de 1991.",
+    "precision": 0.35714285714285715,
+    "cobertura": 1.0,
+    "f1": 0.5263157894736842
+  },
+  {
+    "consulta": "¿Qué es una lista en Python?",
+    "respuesta": "Una lista es una colección ordenada y mutable de elementos dentro de Python.",
+    "precision": 0.5384615384615384,
+    "cobertura": 0.875,
+    "f1": 0.6666666666666667
+  },
+  {
+    "consulta": "¿Qué es Python?",
+    "respuesta": "Python es un lenguaje de programación interpretado, versátil y de alto nivel.",
+    "precision": 0.5833333333333334,
+    "cobertura": 1.0,
+    "f1": 0.7368421052631579
+  }
+]
