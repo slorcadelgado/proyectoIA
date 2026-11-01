@@ -1,0 +1,82 @@
+[
+  {
+    "consulta": "¿Puedo devolver un cargador si la caja está abierta?",
+    "f1": 0.09,
+    "correccion_factual": "sí",
+    "completitud": "no",
+    "contradicción": "no",
+    "nota": "Los plazos son correctos. No dice que el caso requiere revisión ni menciona la caja. Asume que la devolución es posible."
+  },
+  {
+    "consulta": "¿Puedo pedir la devolución del pedido 9999?",
+    "f1": 0.1,
+    "correccion_factual": "sí",
+    "completitud": "no",
+    "contradicción": "no",
+    "nota": "Los plazos son correctos, pero no dice que el pedido no existe."
+  },
+  {
+    "consulta": "¿Puedo cancelar mi pedido si ya salió de la central?",
+    "f1": 0.36,
+    "correccion_factual": "sí",
+    "completitud": "sí",
+    "contradicción": "no",
+    "nota": "Dice lo mismo que la referencia, con otras palabras. La F1 es baja por la redacción."
+  },
+  {
+    "consulta": "¿Puedo devolver un audífono el décimo día después de recibirlo?",
+    "f1": 0.39,
+    "correccion_factual": "sí",
+    "completitud": "sí",
+    "contradicción": "no",
+    "nota": "Responde que sí, en el día 10. La F1 es baja por la redacción."
+  },
+  {
+    "consulta": "¿Me reembolsan el dinero si cancelo mi pedido en central?",
+    "f1": 0.43,
+    "correccion_factual": "sí",
+    "completitud": "sí",
+    "contradicción": "no",
+    "nota": "Dice que sí y que el reembolso es total. La F1 es baja porque la referencia es corta."
+  },
+  {
+    "consulta": "¿Puedo devolver una camiseta personalizada con mi nombre?",
+    "f1": 0.61,
+    "correccion_factual": "sí",
+    "completitud": "sí",
+    "contradicción": "no",
+    "nota": "Dice que no, con el mismo motivo. Agrega 'por lo tanto', que no cambia el sentido."
+  },
+  {
+    "consulta": "¿Cuánto tiempo tengo para devolver ropa?",
+    "f1": 0.62,
+    "correccion_factual": "sí",
+    "completitud": "sí",
+    "contradicción": "no",
+    "nota": "Dice el plazo y la condición de estado entregado."
+  },
+  {
+    "consulta": "¿Desde cuándo se cuentan los días de devolución?",
+    "f1": 0.65,
+    "correccion_factual": "sí",
+    "completitud": "sí",
+    "contradicción": "no",
+    "nota": "Dice que se cuentan desde la entrega, igual que la referencia."
+  },
+  {
+    "consulta": "¿Cómo sé la fecha de entrega de mi pedido?",
+    "f1": 0.75,
+    "correccion_factual": "sí",
+    "completitud": "sí",
+    "contradicción": "no",
+    "nota": "Dice lo mismo que la referencia, con una frase más larga."
+  },
+  {
+    "consulta": "¿Puedo devolver un producto personalizado?",
+    "f1": 1.0,
+    "correccion_factual": "sí",
+    "completitud": "sí",
+    "contradicción": "no",
+    "nota": "Idéntica a la referencia."
+  }
+]

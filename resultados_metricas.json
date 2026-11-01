@@ -1,23 +1,142 @@
 [
   {
-    "consulta": "¿Cuándo se creó Python?",
-    "respuesta": "Python fue creado por Guido van Rossum y lanzado oficialmente en febrero de 1991.",
-    "precision": 0.35714285714285715,
+    "consulta": "¿Puedo devolver un cargador si la caja está abierta?",
+    "respuesta": "Los productos de electrónica se pueden devolver dentro de los 10 días corridos desde la entrega, siempre que el pedido esté en estado \"entregado\". Puedes consultar la fecha de entrega en tu cuenta de cliente.",
+    "precision": 0.05714285714285714,
+    "cobertura": 0.18181818181818182,
+    "f1": 0.08695652173913043
+  },
+  {
+    "consulta": "¿Puedo pedir la devolución del pedido 9999?",
+    "respuesta": "Solo se aceptan devoluciones si tu pedido está en estado \"entregado\" y no es un producto personalizado, contando con 10 días corridos desde la entrega para electrónica y 30 días para ropa. Puedes verificar la fecha de entrega y el estado de tu pedido revisando tu cuenta de cliente.",
+    "precision": 0.061224489795918366,
+    "cobertura": 0.3,
+    "f1": 0.10169491525423728
+  },
+  {
+    "consulta": "¿Puedo cancelar mi pedido si ya salió de la central?",
+    "respuesta": "No es posible cancelar el pedido si ya salió de la central, ya que solo se pueden cancelar los pedidos en estado \"en_central\". Si no desea el producto, deberá esperar a que sea entregado para solicitar su devolución.",
+    "precision": 0.2631578947368421,
+    "cobertura": 0.5882352941176471,
+    "f1": 0.3636363636363636
+  },
+  {
+    "consulta": "¿Puedo devolver un audífono el décimo día después de recibirlo?",
+    "respuesta": "Sí, puedes devolver los audífonos el décimo día, ya que los productos de electrónica se pueden devolver dentro de los 10 días corridos desde la entrega. Ten en cuenta que el pedido debe figurar en estado \"entregado\".",
+    "precision": 0.2702702702702703,
+    "cobertura": 0.7142857142857143,
+    "f1": 0.39215686274509803
+  },
+  {
+    "consulta": "¿Me reembolsan el dinero si cancelo mi pedido en central?",
+    "respuesta": "Sí, si tu pedido está en estado \"en_central\" se puede cancelar y se te reembolsará el total del dinero.",
+    "precision": 0.3157894736842105,
+    "cobertura": 0.6666666666666666,
+    "f1": 0.42857142857142855
+  },
+  {
+    "consulta": "¿Puedo devolver un pedido de ropa que está en estado pendiente?",
+    "respuesta": "No, únicamente se aceptan devoluciones de pedidos que se encuentren en estado \"entregado\". Una vez recibido el pedido, dispones de 30 días corridos desde la entrega para devolver prendas de ropa.",
+    "precision": 0.2903225806451613,
+    "cobertura": 0.9,
+    "f1": 0.4390243902439024
+  },
+  {
+    "consulta": "¿Puedo devolver un pantalón que me llegó hace 25 días?",
+    "respuesta": "Sí, puedes devolver el pantalón, ya que la ropa se puede devolver dentro de los 30 días corridos desde la entrega. Solo ten en cuenta que el pedido debe figurar en estado \"entregado\" para procesar la devolución.",
+    "precision": 0.32432432432432434,
+    "cobertura": 0.9230769230769231,
+    "f1": 0.48
+  },
+  {
+    "consulta": "¿Puedo devolver un pedido que todavía está en tránsito?",
+    "respuesta": "No, solo se aceptan devoluciones de pedidos que se encuentren en estado \"entregado\". Si no deseas el producto, deberás esperar a recibirlo y realizar la devolución después de la entrega.",
+    "precision": 0.3333333333333333,
     "cobertura": 1.0,
+    "f1": 0.5
+  },
+  {
+    "consulta": "¿Me devuelven el dinero de un pedido que todavía no ha llegado?",
+    "respuesta": "Solo se reembolsará el dinero si el pedido está en estado \"en_central\" y solicitas la cancelación. Si el pedido ya se encuentra \"en_transito\" o \"en_reparto\", no se puede cancelar y deberás esperar a recibirlo para tramitar la devolución.",
+    "precision": 0.4473684210526316,
+    "cobertura": 0.6071428571428571,
+    "f1": 0.5151515151515151
+  },
+  {
+    "consulta": "¿Puedo devolver un cargador que me llegó hace 15 días?",
+    "respuesta": "No es posible devolver el cargador, ya que los productos de electrónica solo admiten devolución dentro de los 10 días corridos desde su entrega.",
+    "precision": 0.4166666666666667,
+    "cobertura": 0.7142857142857143,
     "f1": 0.5263157894736842
   },
   {
-    "consulta": "¿Qué es una lista en Python?",
-    "respuesta": "Una lista es una colección ordenada y mutable de elementos dentro de Python.",
-    "precision": 0.5384615384615384,
-    "cobertura": 0.875,
-    "f1": 0.6666666666666667
+    "consulta": "¿Qué pasa si devuelvo electrónica después de 10 días?",
+    "respuesta": "Los productos de electrónica solo se pueden devolver dentro de los 10 días corridos desde la entrega. Pasado ese plazo, ya no se admite su devolución.",
+    "precision": 0.4230769230769231,
+    "cobertura": 0.7857142857142857,
+    "f1": 0.55
   },
   {
-    "consulta": "¿Qué es Python?",
-    "respuesta": "Python es un lenguaje de programación interpretado, versátil y de alto nivel.",
-    "precision": 0.5833333333333334,
+    "consulta": "¿Y si devuelvo ropa después de 30 días?",
+    "respuesta": "La ropa solo se puede devolver dentro de los 30 días corridos desde la entrega. Pasado ese plazo, no se admiten devoluciones.",
+    "precision": 0.45454545454545453,
+    "cobertura": 0.7142857142857143,
+    "f1": 0.5555555555555556
+  },
+  {
+    "consulta": "¿Puedo devolver un televisor que me entregaron ayer?",
+    "respuesta": "Sí, puedes devolver el televisor. Los productos de electrónica se pueden devolver dentro de los 10 días corridos desde la entrega, siempre que el pedido esté en estado \"entregado\".",
+    "precision": 0.41379310344827586,
+    "cobertura": 0.8571428571428571,
+    "f1": 0.5581395348837208
+  },
+  {
+    "consulta": "¿Cuántos días tengo para devolver un producto de electrónica?",
+    "respuesta": "Puedes devolver un producto de electrónica dentro de los 10 días corridos desde la entrega. Ten en cuenta que solo se aceptan devoluciones de pedidos que estén en estado \"entregado\".",
+    "precision": 0.43333333333333335,
+    "cobertura": 0.8666666666666667,
+    "f1": 0.5777777777777778
+  },
+  {
+    "consulta": "¿Puedo cambiar un producto por otra talla?",
+    "respuesta": "No realizamos cambios directos de talla. Debe solicitar la devolución del producto y realizar una nueva compra en la talla que necesita.",
+    "precision": 0.5454545454545454,
+    "cobertura": 0.631578947368421,
+    "f1": 0.5853658536585366
+  },
+  {
+    "consulta": "¿Puedo devolver una camiseta personalizada con mi nombre?",
+    "respuesta": "No, los productos personalizados no admiten devolución. Por lo tanto, no es posible devolver tu camiseta.",
+    "precision": 0.4375,
     "cobertura": 1.0,
-    "f1": 0.7368421052631579
+    "f1": 0.6086956521739131
+  },
+  {
+    "consulta": "¿Cuánto tiempo tengo para devolver ropa?",
+    "respuesta": "Puedes devolver la ropa dentro de los 30 días corridos desde la entrega. Ten en cuenta que solo se aceptan devoluciones de pedidos en estado \"entregado\".",
+    "precision": 0.46153846153846156,
+    "cobertura": 0.9230769230769231,
+    "f1": 0.6153846153846155
+  },
+  {
+    "consulta": "¿Desde cuándo se cuentan los días de devolución?",
+    "respuesta": "Los días de devolución se cuentan desde la entrega del producto. Puedes verificar la fecha de entrega ingresando a tu cuenta de cliente.",
+    "precision": 0.4782608695652174,
+    "cobertura": 1.0,
+    "f1": 0.6470588235294118
+  },
+  {
+    "consulta": "¿Cómo sé la fecha de entrega de mi pedido?",
+    "respuesta": "Puedes consultar la fecha de entrega de tu pedido directamente en tu cuenta de cliente.",
+    "precision": 0.6,
+    "cobertura": 1.0,
+    "f1": 0.7499999999999999
+  },
+  {
+    "consulta": "¿Puedo devolver un producto personalizado?",
+    "respuesta": "No, los productos personalizados no admiten devolución.",
+    "precision": 1.0,
+    "cobertura": 1.0,
+    "f1": 1.0
   }
 ]

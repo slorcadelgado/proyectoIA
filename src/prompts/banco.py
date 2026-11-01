@@ -5,6 +5,10 @@ POLITICAS = """
 - Ropa: se puede devolver dentro de 30 días corridos desde la entrega.
 - Productos personalizados: no admiten devolución.
 - Solo se aceptan devoluciones de pedidos en estado "entregado".
+- Cancelación: solo si el pedido está en estado "en_central"; se reembolsa el total.
+- Pedidos en "en_transito" o "en_reparto" no se cancelan; si el cliente no quiere el producto, lo devuelve después de la entrega.
+- Cambios de talla: no hay cambios directos. El cliente solicita la devolución y puede volver a comprar el producto en la talla que necesita.
+- La fecha de entrega está en la cuenta del cliente.
 """
 
 SYSTEM_INSTRUCTION = f"""
