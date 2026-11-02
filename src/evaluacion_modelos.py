@@ -1,4 +1,4 @@
-import consumir_gemini
+from . import consumir_gemini
 import time
 
 def enviar_con_reintentos(url, body, reintentos=3, espera_base=5):

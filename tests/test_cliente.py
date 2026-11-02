@@ -1,7 +1,7 @@
 from unittest.mock import patch, Mock
 import pytest
-import cliente
-from cliente import con_reintento, registrar_costo, consultar_modelo
+from src import cliente
+from src.cliente import con_reintento, registrar_costo, consultar_modelo
 from src.consumir_gemini import enviar_peticion
 
 RESPUESTA_GEMINI = {
