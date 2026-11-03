@@ -29,28 +29,38 @@ texto_prueba = (
     "divide en tokens, un proceso llamado tokenización."
 )
 
-puntos = paso_extraccion.invoke(
-    {"texto": texto_prueba}
-)
+# puntos = paso_extraccion.invoke(
+#     {"texto": texto_prueba}
+# )
 
-print(puntos)
+# print(puntos)
 
 plantilla_simplificacion = PromptTemplate.from_template("Reescribe estos puntos en lenguaje simple, sin jerga técnica para alguien sin conocimiento previos: \n\n {puntos}")
 
 paso_simplificacion = plantilla_simplificacion | modelo | StrOutputParser()
 
-simple = paso_simplificacion.invoke(
-    {"puntos": puntos}
-)
+# simple = paso_simplificacion.invoke(
+#     {"puntos": puntos}
+# )
 
-print(simple)
+# print(simple)
 
 plantilla_formato = PromptTemplate.from_template("Convierte este texto en una lista de viñetas markdown de maximo 3 lineas, sin introducción: \n\n {texto_simple}")
 
 paso_formato = plantilla_formato | modelo | StrOutputParser()
 
-formato = paso_formato.invoke(
-    {"texto_simple": simple}
+# formato = paso_formato.invoke(
+#     {"texto_simple": simple}
+# )
+
+# print(formato)
+
+cadena_tres_pasos = (
+    plantilla_extraccion | modelo | StrOutputParser() | (lambda puntos: {"puntos": puntos}) |
+    plantilla_simplificacion | modelo | StrOutputParser() | (lambda simple: {"texto_simple": simple}) |
+    plantilla_formato | modelo | StrOutputParser()
 )
 
-print(formato)
+respuesta = cadena_tres_pasos.invoke({"texto": texto_prueba})
+
+print(respuesta)
