@@ -2,7 +2,20 @@ from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI #Modelo
 from langchain_core.prompts import PromptTemplate #Plantilla -> Prompt dinámico
 from langchain_core.output_parsers import StrOutputParser #Parsea la respuesta y la transforma en solo textos
-from langchain_core.runnables import (RunnableBranch, RunnablePassthrough) #Bifurcaciones/Branches/Ramificaciones
+from langchain_core.runnables import (RunnableBranch, RunnablePassthrough, RunnableLambda) #Bifurcaciones/Branches/Ramificaciones
+
+import logging #Generar un archivo de log con los errores que se presenten
+
+logging.basicConfig(
+    level=logging.WARNING,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s", #2026-11-04 16:40 [WARNING] main: No se pudo ejecutar x
+    datefmt="%Y-%m-%d %H:%M:%S",
+    filename="error.log",
+    filemode="a", #Agrega al final del archivo la nueva línea
+    encoding="utf-8",
+    force=True
+)
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
@@ -67,11 +80,29 @@ cadena_con_enrutamiento = (
     | bifurcacion
 )
 
-resultado = cadena_con_enrutamiento.invoke(
-    {"mensaje": "Deberían de tener más agentes disponibles."}
+#Fallback: cadena de respaldo. Captura las caídas de mi LLM (RateLimitError, 401, APIConnectionError, respuestas vacías)
+
+def fallback_con_log(x):
+    logger.warning("Cadena principal falló. Activando respuesta genérica, Error: %s", x.get("error"))
+    return "Gracias por tu mensaje. Un miembro de nuestro equipo te va a responder pronto."
+
+respuesta_generica = RunnableLambda(
+    fallback_con_log
 )
 
-print(resultado)
+cadena_robusta = cadena_con_enrutamiento.with_fallbacks([respuesta_generica], exception_key="error")
+
+def procesar_mensaje_seguro(cadena, mensaje):
+    try:
+        return cadena.invoke({"mensaje": mensaje})
+    except Exception as error:
+        logger.error("Error procesando mensaje: %s", error)
+        return "No pudimos procesar tu mensaje en este momento. Intenta de nuevo más tarde"
+
+if __name__ == "__main__": #Solamente ejecuta el siguiente bloque de código si la ejecución es directa del archivo. NO EJECUTES si es import
+    mensaje = "Llevo varios días sin poder entrar a mi cuenta."
+    print(procesar_mensaje_seguro(cadena_robusta, mensaje))
+
 
 # Entrada inicial: {"mensaje": "Deberían de tener más agentes disponibles."}
 #                   │
