@@ -51,7 +51,7 @@ def test_enrutamiento_usa_default_ante_categoria_desconocida():
     assert resultado == "respuesta por defecto"
 
 
-def test_categoria_normaliza_antes_de_comparar():
+def test_clasificacion_normaliza_antes_de_comparar():
     modelo_falso = MagicMock()
     modelo_falso.return_value = AIMessage(content=" Queja \n")
 

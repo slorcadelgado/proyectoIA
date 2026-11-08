@@ -89,8 +89,6 @@ def construir_cadena_con_enrutamiento(paso_clasificacion, cadena_queja=None, cad
         | bifurcacion
     )
 
-cadena_con_enrutamiento = construir_cadena_con_enrutamiento(paso_clasificacion, cadena_queja, cadena_sugerencia, cadena_pregunta)
-
 #Fallback: cadena de respaldo. Captura las caídas de mi LLM (RateLimitError, 401, APIConnectionError, respuestas vacías)
 
 def fallback_con_log(x):
@@ -100,6 +98,13 @@ def fallback_con_log(x):
 respuesta_generica = RunnableLambda(
     fallback_con_log
 )
+
+def construir_cadena_queja_segura(cadena_queja):
+    return cadena_queja.with_fallbacks([respuesta_generica])
+
+cadena_queja_segura = construir_cadena_queja_segura(cadena_queja)
+
+cadena_con_enrutamiento = construir_cadena_con_enrutamiento(paso_clasificacion, cadena_queja_segura, cadena_sugerencia, cadena_pregunta)
 
 cadena_robusta = cadena_con_enrutamiento.with_fallbacks([respuesta_generica], exception_key="error")
 
@@ -118,7 +123,7 @@ if __name__ == "__main__": #Solamente ejecuta el siguiente bloque de código si 
     ]
     # Imprime la categoría que devuelve la clasificación, sin llamadas extra a la API
     paso_clasificacion_visible = paso_clasificacion | RunnableLambda(lambda categoria: print(f"Categoría: {categoria}") or categoria)
-    cadena_demo = construir_cadena_con_enrutamiento(paso_clasificacion_visible, cadena_queja, cadena_sugerencia, cadena_pregunta)
+    cadena_demo = construir_cadena_con_enrutamiento(paso_clasificacion_visible, cadena_queja_segura, cadena_sugerencia, cadena_pregunta)
     cadena_demo_robusta = cadena_demo.with_fallbacks([respuesta_generica], exception_key="error")
     for mensaje in mensajes:
         print(procesar_mensaje_seguro(cadena_demo_robusta, mensaje))
