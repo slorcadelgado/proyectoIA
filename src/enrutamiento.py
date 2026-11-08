@@ -21,17 +21,20 @@ load_dotenv()
 
 modelo = ChatGoogleGenerativeAI(model="gemini-3.6-flash")
 
-plantilla_clasificacion = PromptTemplate.from_template(
-    "Clasifica el siguiente mensaje de soporte en una sola palabra: "
-    "pregunta, queja o sugerencia. Responde solo con esa palabra. \n\n {mensaje}"
-)
+def construir_paso_clasificacion(modelo):
+    plantilla_clasificacion = PromptTemplate.from_template(
+        "Clasifica el siguiente mensaje de soporte en una sola palabra: "
+        "pregunta, queja o sugerencia. Responde solo con esa palabra. \n\n {mensaje}"
+    )
 
-paso_clasificacion = (
-    plantilla_clasificacion
-    | modelo
-    | StrOutputParser()
-    | (lambda texto: texto.strip().lower())
-)
+    return (
+        plantilla_clasificacion
+        | modelo
+        | StrOutputParser()
+        | (lambda texto: texto.strip().lower())
+    )
+
+paso_clasificacion = construir_paso_clasificacion(modelo)
 
 # mensaje_prueba = "Dame el nombre de tu creador."
 
@@ -68,17 +71,25 @@ cadena_sugerencia = (
 # ) #Cada condicion debe ser una función; suele ser un lambda
 
 
-#x = {"clasificacion": "queja", "mensaje": "Mi teléfono no funciona"}
-bifurcacion = RunnableBranch(
-    (lambda x: x["clasificacion"] == "queja", cadena_queja), #if x["clasificacion"] == "queja": cadena_queja
-    (lambda x: x["clasificacion"] == "sugerencia", cadena_sugerencia), #elif x["clasificacion"] == "sugerencia": cadena_sugerencia
-    cadena_pregunta #else: cadena_pregunta
-)
+def construir_cadena_con_enrutamiento(paso_clasificacion, cadena_queja=None, cadena_sugerencia=None, cadena_pregunta=None):
+    # Si una rama no se pasa, RunnablePassthrough la reemplaza: nunca se ejecuta, salvo que la clasificación la elija
+    cadena_queja = cadena_queja or RunnablePassthrough()
+    cadena_sugerencia = cadena_sugerencia or RunnablePassthrough()
+    cadena_pregunta = cadena_pregunta or RunnablePassthrough()
 
-cadena_con_enrutamiento = (
-    RunnablePassthrough.assign(clasificacion=paso_clasificacion) #{"mensaje": "Deberían de tener más agentes disponibles.", "clasificacion":resultado de paso_clasificacion}
-    | bifurcacion
-)
+    #x = {"categoria": "queja", "mensaje": "Mi teléfono no funciona"}
+    bifurcacion = RunnableBranch(
+        (lambda x: x["categoria"] == "queja", cadena_queja), #if x["categoria"] == "queja": cadena_queja
+        (lambda x: x["categoria"] == "sugerencia", cadena_sugerencia), #elif x["categoria"] == "sugerencia": cadena_sugerencia
+        cadena_pregunta #else: cadena_pregunta
+    )
+
+    return (
+        RunnablePassthrough.assign(categoria=paso_clasificacion) #{"mensaje": "Deberían de tener más agentes disponibles.", "categoria":resultado de paso_clasificacion}
+        | bifurcacion
+    )
+
+cadena_con_enrutamiento = construir_cadena_con_enrutamiento(paso_clasificacion, cadena_queja, cadena_sugerencia, cadena_pregunta)
 
 #Fallback: cadena de respaldo. Captura las caídas de mi LLM (RateLimitError, 401, APIConnectionError, respuestas vacías)
 
@@ -100,8 +111,17 @@ def procesar_mensaje_seguro(cadena, mensaje):
         return "No pudimos procesar tu mensaje en este momento. Intenta de nuevo más tarde"
 
 if __name__ == "__main__": #Solamente ejecuta el siguiente bloque de código si la ejecución es directa del archivo. NO EJECUTES si es import
-    mensaje = "Llevo varios días sin poder entrar a mi cuenta."
-    print(procesar_mensaje_seguro(cadena_robusta, mensaje))
+    mensajes = [
+        "¿Cómo cambio mi contraseña?",
+        "La app se cierra cada vez que subo una foto.",
+        "Estaría bueno que la app tuviera modo oscuro.",
+    ]
+    # Imprime la categoría que devuelve la clasificación, sin llamadas extra a la API
+    paso_clasificacion_visible = paso_clasificacion | RunnableLambda(lambda categoria: print(f"Categoría: {categoria}") or categoria)
+    cadena_demo = construir_cadena_con_enrutamiento(paso_clasificacion_visible, cadena_queja, cadena_sugerencia, cadena_pregunta)
+    cadena_demo_robusta = cadena_demo.with_fallbacks([respuesta_generica], exception_key="error")
+    for mensaje in mensajes:
+        print(procesar_mensaje_seguro(cadena_demo_robusta, mensaje))
 
 
 # Entrada inicial: {"mensaje": "Deberían de tener más agentes disponibles."}
