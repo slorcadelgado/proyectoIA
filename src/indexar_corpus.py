@@ -30,9 +30,13 @@ chunks = splitter.split_documents(documentos)
 embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
 
 # Indexar y guardar en disco
+# ids predecibles (doc1, doc2, ...) para poder referenciar cada chunk en la evaluación del bloque 27
+ids = [f"doc{i}" for i in range(1, len(chunks) + 1)]
+
 vectorstore = Chroma.from_documents(
     documents=chunks,
     embedding=embeddings,
+    ids=ids,
     persist_directory=CARPETA_VECTORES,
 )
 
