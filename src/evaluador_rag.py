@@ -1,3 +1,5 @@
+from datetime import date
+
 from rag_indexer import cargar_vectorstore
 
 
@@ -67,34 +69,45 @@ def evaluar_recuperacion(retriever, casos: list[dict], k: int = 3):
     
     return resultados
 
+def guardar_reporte(ruta_archivo: str, resultados: list[dict], k: int, chunk_size: int = 200, chunk_overlap: int = 30):
+    """Guarda el registro en un .txt para compararlo cuando cambies k o chunk_size."""
+    with open(ruta_archivo, "a", encoding="utf-8") as archivo:
+        archivo.write("=" * 70 + "\n")
+        archivo.write(f"Fecha: {date.today()}\n")
+        archivo.write(f"Configuracion: k={k}, chunk_size={chunk_size}, chunk_overlap={chunk_overlap}\n\n")
+
+        for r in resultados:
+            recall_txt = "n/a" if r["recall"] is None else f"{r['recall']:.2f}"
+            archivo.write(f"P={r['precision']:.2f} | R={recall_txt} | F1={r['f1']:.2f} | {r['pregunta']}\n")
+
+    print(f"\nReporte guardado en '{ruta_archivo}'")
+
 if __name__ == "__main__":
-    CARPETA_DB = "vectorstore_ejemplo"
+    CARPETA_DB = "vectorstore/"
     K = 3
     vs = cargar_vectorstore(CARPETA_DB)
-
-    pregunta = "Cuáles son los errores de credenciales inválidas?"
-    ids_relevantes = {"2e71f600-077c-4aa4-aa5c-6ccf74d988f1", "e3272e13-bc5a-43a8-a545-7fa28e32168e", "fed74a89-53ad-408d-a278-8766d119964a"}
-
     retriever = vs.as_retriever(search_kwargs={"k": K})
-    chunks = retriever.invoke(pregunta) #Consulta
-    print(chunks)
-    ids_recuperados = [c.id for c in chunks]
-
-    precision = precision_at_k(ids_recuperados, ids_relevantes)
-    print("Precision: ", precision)
-
-    exhaustividad = recall_at_k(ids_recuperados, ids_relevantes)
-    print("Exhaustividad: ", exhaustividad)
-
-    f1 = f1_score(precision, exhaustividad)
-    print("F1 Score: ", f1)
 
     casos_evaluacion = [
-        {"pregunta": "", "ids_relevantes": {"ids1", "ids2"}},
-        {"pregunta": "", "ids_relevantes": {"ids1", "ids2"}},
-        {"pregunta": "", "ids_relevantes": {"ids1", "ids2"}},
-        {"pregunta": "", "ids_relevantes": {"ids1", "ids2"}},
+        {"pregunta": "¿Cuántos días tengo para devolver un producto de electrónica?", "ids_relevantes": {"doc1"}},
+        {"pregunta": "¿Puedo devolver un producto personalizado?", "ids_relevantes": {"doc3"}},
+        {"pregunta": "¿Puedo cancelar mi pedido si ya salió de la central?", "ids_relevantes": {"doc4"}},
+        {"pregunta": "¿Puedo cambiar un producto por otra talla?", "ids_relevantes": {"doc5"}},
     ]
+
+    resultados = evaluar_recuperacion(retriever, casos_evaluacion, k=K)
+    for r in resultados:
+        print(f"precision={r['precision']:.2f}  recall={r['recall']:.2f}  f1={r['f1']:.2f}  {r['pregunta']}")
+        print(f"recuperados: {r['ids_recuperados']}")
+
+    n = len(resultados)
+    prom_precision = sum(r["precision"] for r in resultados) / n
+    prom_recall = sum(r["recall"] for r in resultados) / n
+    prom_f1 = sum(r["f1"] for r in resultados) / n
+    print(f"promedio -> precision: {prom_precision:.3f}  recall: {prom_recall:.3f}  f1: {prom_f1:.3f}")
+
+    # chunk_size y chunk_overlap deben coincidir con indexar_corpus.py
+    guardar_reporte("resultados_evaluacion.txt", resultados, k=K, chunk_size=200, chunk_overlap=30)
 
     """
     Precisión: Fórmula: Verdaderos Positivos / (Verdaderos Positivos + Falsos Positivos) 

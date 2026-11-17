@@ -1,0 +1,24 @@
+======================================================================
+Fecha: 2026-11-17
+Configuracion: k=3, chunk_size=200, chunk_overlap=30
+
+P=0.33 | R=1.00 | F1=0.50 | ¿Cuántos días tengo para devolver un producto de electrónica?
+P=0.33 | R=1.00 | F1=0.50 | ¿Puedo devolver un producto personalizado?
+P=0.33 | R=1.00 | F1=0.50 | ¿Puedo cancelar mi pedido si ya salió de la central?
+P=0.33 | R=1.00 | F1=0.50 | ¿Puedo cambiar un producto por otra talla?
+======================================================================
+Fecha: 2026-11-17
+Configuracion: k=5, chunk_size=200, chunk_overlap=30
+
+P=0.20 | R=1.00 | F1=0.33 | ¿Cuántos días tengo para devolver un producto de electrónica?
+P=0.20 | R=1.00 | F1=0.33 | ¿Puedo devolver un producto personalizado?
+P=0.20 | R=1.00 | F1=0.33 | ¿Puedo cancelar mi pedido si ya salió de la central?
+P=0.20 | R=1.00 | F1=0.33 | ¿Puedo cambiar un producto por otra talla?
+======================================================================
+Fecha: 2026-11-17
+Configuracion: k=3, chunk_size=200, chunk_overlap=30
+
+P=0.33 | R=1.00 | F1=0.50 | ¿Cuántos días tengo para devolver un producto de electrónica?
+P=0.33 | R=1.00 | F1=0.50 | ¿Puedo devolver un producto personalizado?
+P=0.33 | R=1.00 | F1=0.50 | ¿Puedo cancelar mi pedido si ya salió de la central?
+P=0.33 | R=1.00 | F1=0.50 | ¿Puedo cambiar un producto por otra talla?
