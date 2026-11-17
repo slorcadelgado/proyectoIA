@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_chroma import Chroma
+from langchain_core.documents import Document
 
 load_dotenv()
 
@@ -18,7 +19,12 @@ CARPETA_VECTORES = "vectorstore/"
 
 # Chunking: recursivo, tamaño 200 y solapamiento 30
 splitter = RecursiveCharacterTextSplitter(chunk_size=200, chunk_overlap=30)
-chunks = splitter.create_documents(corpus)
+# Cada documento lleva su fuente en la metadata; sin ella, las citas salen como 'desconocida'
+documentos = [
+    Document(page_content=texto, metadata={"fuente": f"politica_{i}.md"})
+    for i, texto in enumerate(corpus, start=1)
+]
+chunks = splitter.split_documents(documentos)
 
 # Embeddings reales de Gemini: una llamada a la API por lote de chunks
 embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
