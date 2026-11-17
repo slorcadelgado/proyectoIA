@@ -1,0 +1,33 @@
+from dotenv import load_dotenv
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_chroma import Chroma
+
+load_dotenv()
+
+# Corpus propio: políticas de postventa del proyecto, cada documento menor a 200 caracteres
+corpus = [
+    "Electrónica: se puede devolver dentro de 10 días corridos desde la entrega. Solo si el pedido está en estado entregado.",
+    "Ropa: se puede devolver dentro de 30 días corridos desde la entrega. El pedido debe estar en estado entregado.",
+    "Productos personalizados: no admiten devolución, ni siquiera dentro del plazo de su categoría.",
+    "Cancelación: un pedido solo se puede cancelar mientras está en_central. Se reembolsa el total.",
+    "Cambios de talla: no hay cambios directos. El cliente solicita la devolución y puede volver a comprar en la talla que necesita.",
+]
+
+CARPETA_VECTORES = "vectorstore/"
+
+# Chunking: recursivo, tamaño 200 y solapamiento 30
+splitter = RecursiveCharacterTextSplitter(chunk_size=200, chunk_overlap=30)
+chunks = splitter.create_documents(corpus)
+
+# Embeddings reales de Gemini: una llamada a la API por lote de chunks
+embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
+
+# Indexar y guardar en disco
+vectorstore = Chroma.from_documents(
+    documents=chunks,
+    embedding=embeddings,
+    persist_directory=CARPETA_VECTORES,
+)
+
+print(f"Indexados {len(chunks)} chunks en {CARPETA_VECTORES}")
