@@ -22,3 +22,5 @@ Thumbs.db
 
 # Vector store generado por indexar_corpus.py (se puede reconstruir, no se versiona)
 vectorstore/
+
+credenciales.json
