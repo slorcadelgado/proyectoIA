@@ -1,0 +1,12 @@
+{"contents": [{"role": "user", "parts": [{"text": "Quiero devolver el audífono que compré hace 3 días, ¿cómo lo hago?"}]}, {"role": "model", "parts": [{"text": "{\"categoria\": \"devolucion\", \"prioridad\": \"media\"}"}]}]}
+{"contents": [{"role": "user", "parts": [{"text": "¿Cuánto tiempo tengo para devolver una camiseta que no me quedó?"}]}, {"role": "model", "parts": [{"text": "{\"categoria\": \"devolucion\", \"prioridad\": \"baja\"}"}]}]}
+{"contents": [{"role": "user", "parts": [{"text": "El producto llegó roto, quiero que me devuelvan el dinero."}]}, {"role": "model", "parts": [{"text": "{\"categoria\": \"devolucion\", \"prioridad\": \"alta\"}"}]}]}
+{"contents": [{"role": "user", "parts": [{"text": "Me cobraron dos veces el mismo pedido en mi tarjeta."}]}, {"role": "model", "parts": [{"text": "{\"categoria\": \"cobro\", \"prioridad\": \"alta\"}"}]}]}
+{"contents": [{"role": "user", "parts": [{"text": "No me aparece el cargo del pedido en mi estado de cuenta, ¿es normal?"}]}, {"role": "model", "parts": [{"text": "{\"categoria\": \"cobro\", \"prioridad\": \"media\"}"}]}]}
+{"contents": [{"role": "user", "parts": [{"text": "El precio en el carrito no coincide con el precio del producto."}]}, {"role": "model", "parts": [{"text": "{\"categoria\": \"cobro\", \"prioridad\": \"media\"}"}]}]}
+{"contents": [{"role": "user", "parts": [{"text": "¿Dónde está mi pedido? Lleva cinco días en tránsito."}]}, {"role": "model", "parts": [{"text": "{\"categoria\": \"envio\", \"prioridad\": \"media\"}"}]}]}
+{"contents": [{"role": "user", "parts": [{"text": "Mi paquete llegó a una dirección que no es la mía."}]}, {"role": "model", "parts": [{"text": "{\"categoria\": \"envio\", \"prioridad\": \"alta\"}"}]}]}
+{"contents": [{"role": "user", "parts": [{"text": "¿Cuánto cuesta enviar a una ciudad fuera de la capital?"}]}, {"role": "model", "parts": [{"text": "{\"categoria\": \"envio\", \"prioridad\": \"baja\"}"}]}]}
+{"contents": [{"role": "user", "parts": [{"text": "El cupón de descuento no me funciona en el checkout."}]}, {"role": "model", "parts": [{"text": "{\"categoria\": \"promocion\", \"prioridad\": \"media\"}"}]}]}
+{"contents": [{"role": "user", "parts": [{"text": "¿Esta oferta de 20 por ciento incluye los productos en liquidación?"}]}, {"role": "model", "parts": [{"text": "{\"categoria\": \"promocion\", \"prioridad\": \"baja\"}"}]}]}
+{"contents": [{"role": "user", "parts": [{"text": "Tengo un código de regalo y no sé dónde canjearlo."}]}, {"role": "model", "parts": [{"text": "{\"categoria\": \"promocion\", \"prioridad\": \"baja\"}"}]}]}
