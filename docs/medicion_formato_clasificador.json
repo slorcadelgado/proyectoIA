@@ -1,0 +1,122 @@
+[
+  {
+    "mensaje": "Hola, el paquete todavía no aparece en la app después de cuatro días.",
+    "respuesta": "{\"categoria\": \"envio\", \"prioridad\": \"media\"}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "Quiero que me regresen el dinero del zapato, no me quedó bien.",
+    "respuesta": "{\"categoria\": \"devolucion\", \"prioridad\": \"media\"}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "Me llegó doble cobro en la tarjeta por la misma compra del martes.",
+    "respuesta": "{\"categoria\": \"cobro\", \"prioridad\": \"alta\"}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "¿Puedo cambiar la dirección de entrega de un pedido que ya está en camino?",
+    "respuesta": "{\n  \"categoria\": \"envio\",\n  \"prioridad\": \"alta\"\n}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "El descuento de 15 por ciento no se aplicó en mi carrito.",
+    "respuesta": "{\n  \"categoria\": \"promocion\",\n  \"prioridad\": \"media\"\n}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "Compré una lámpara y vino sin el cable de alimentación.",
+    "respuesta": "{\n  \"categoria\": \"devolucion\",\n  \"prioridad\": \"alta\"\n}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "¿Cuánto cobran por envío a Valparaíso? Lo necesito urgente para mañana.",
+    "respuesta": "{\n  \"categoria\": \"envio\",\n  \"prioridad\": \"alta\"\n}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "No puedo usar mi cupón de bienvenida, dice que ya expiró pero lo recibí ayer.",
+    "respuesta": "{\"categoria\": \"promocion\", \"prioridad\": \"media\"}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "Me cobraron el envío dos veces en el mismo pedido.",
+    "respuesta": "{\"categoria\": \"cobro\", \"prioridad\": \"alta\"}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "Quisiera saber si el reembolso de mi tarjeta ya se procesó.",
+    "respuesta": "{\"categoria\": \"devolucion\", \"prioridad\": \"media\"}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "El repartidor dejó el pedido con otro vecino sin avisarme.",
+    "respuesta": "{\"categoria\": \"envio\", \"prioridad\": \"alta\"}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "¿Hay promoción en productos de cocina este fin de semana?",
+    "respuesta": "{\n  \"categoria\": \"promocion\",\n  \"prioridad\": \"baja\"\n}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "Devolví una chaqueta hace una semana y todavía no tengo mi dinero.",
+    "respuesta": "{\"categoria\": \"devolucion\", \"prioridad\": \"alta\"}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "La caja llegó aplastada pero el producto está bien, ¿qué hago?",
+    "respuesta": "{\n  \"categoria\": \"envio\",\n  \"prioridad\": \"baja\"\n}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "Tengo un cupón de regalo y quiero saber si sirve para envíos.",
+    "respuesta": "{\"categoria\": \"promocion\", \"prioridad\": \"baja\"}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "Me aparece un cargo que no reconozco de su tienda en mi estado de cuenta.",
+    "respuesta": "{\n  \"categoria\": \"cobro\",\n  \"prioridad\": \"alta\"\n}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "El pedido salió hace tres días y el rastreo sigue en la misma ciudad.",
+    "respuesta": "{\n  \"categoria\": \"envio\",\n  \"prioridad\": \"media\"\n}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "¿Puedo devolver unos audífonos que compré con descuento del 30 por ciento?",
+    "respuesta": "{\n  \"categoria\": \"devolucion\",\n  \"prioridad\": \"baja\"\n}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "Mi factura tiene el monto mal, cobraron más de lo que marca el carrito.",
+    "respuesta": "{\"categoria\": \"cobro\", \"prioridad\": \"alta\"}",
+    "valido": true,
+    "motivo": "ok"
+  },
+  {
+    "mensaje": "Quiero saber si las ofertas del Black Friday acumulan con cupones.",
+    "respuesta": "{\"categoria\": \"promocion\", \"prioridad\": \"baja\"}",
+    "valido": true,
+    "motivo": "ok"
+  }
+]
