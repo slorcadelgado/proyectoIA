@@ -47,7 +47,11 @@ def medir(tiempos: dict, etapa: str):
     tiempos[etapa] = time.perf_counter() - inicio #Tiempo total en el que se ejecutó esa etapa/tarea
 
 #Calculo de costos (tokens_entrada, tokens_salida, tarifa_entrada, tarifa_salida)
-def calcular_costo(tokens_entrada: int, tokens_salida: int, tarifa_entrada_x1M: float = .3, tarifa_salida_x1M: float = 2.5) -> float:
+#Tarifas de gemini-3.6-flash por millón de tokens (nivel de pago estándar, vigentes hasta el 31 de diciembre de 2026; verificar antes de citar)
+TARIFA_ENTRADA_X1M = .75
+TARIFA_SALIDA_X1M = 3.75
+
+def calcular_costo(tokens_entrada: int, tokens_salida: int, tarifa_entrada_x1M: float = TARIFA_ENTRADA_X1M, tarifa_salida_x1M: float = TARIFA_SALIDA_X1M) -> float:
     """
     Calcula el costo monetario real de la consulta con contexto de mi RAG
     """
@@ -64,7 +68,7 @@ def registrar_consulta(vectorstore, pregunta: str, k: int = 3) -> dict:
     """
     tiempos = {} #Es donde voy a almacenar la latencia de cada etapa
 
-    chat_model = ChatGoogleGenerativeAI(model="gemini-3.5-flash-lite")
+    chat_model = ChatGoogleGenerativeAI(model="gemini-3.6-flash")
     
     #Etapa 1: Embed y la busqueda vectorial (Consulta a mi VS) - Acción Local
     with medir(tiempos, "embed_y_busqueda"):
@@ -90,8 +94,8 @@ def registrar_consulta(vectorstore, pregunta: str, k: int = 3) -> dict:
         costo_usd = calcular_costo(
             tokens_entrada = tokens_reales.get("input_tokens", 0),
             tokens_salida = tokens_reales.get("output_tokens", 0), #output_tokens YA INCLUYE tokens de razonamiento
-            tarifa_entrada_x1M = .3,
-            tarifa_salida_x1M = 2.5
+            tarifa_entrada_x1M = TARIFA_ENTRADA_X1M,
+            tarifa_salida_x1M = TARIFA_SALIDA_X1M
         )
     
     #Factor crecimiento: comparación de cuánto creció el texto de entrada vs la pregunta solita
@@ -104,7 +108,7 @@ def registrar_consulta(vectorstore, pregunta: str, k: int = 3) -> dict:
         "k": k,
         "respuesta_generada": respuesta.content,
         "citas_disponibles": citas,
-        "tiempo_ms": {etapa: round(seg * 1000, 2) for etapa, seg in tiempos.items()},
+        "tiempos_ms": {etapa: round(seg * 1000, 2) for etapa, seg in tiempos.items()},
         "tiempo_total_ms": round(sum(tiempos.values()) * 1000, 2),
         "factor_crecimiento": f"{factor_crecimiento}x",
         "tokens": tokens_reales,
@@ -113,7 +117,7 @@ def registrar_consulta(vectorstore, pregunta: str, k: int = 3) -> dict:
 
     return registro
 
-def guardar_registro_jsonl(registro: dict, ruta_archivo: str = "registro_latencia_costo_rag.jsonl"):
+def guardar_registro_jsonl(registro: dict, ruta_archivo: str = "registros_latencia_costo.jsonl"):
     """
     Guarda cada corrida/registro generado y lo agrega a un json
     """
@@ -123,11 +127,31 @@ def guardar_registro_jsonl(registro: dict, ruta_archivo: str = "registro_latenci
     print(f"Registro guardado en {ruta_archivo}")
 
 if __name__ == "__main__":
-    CARPETA_DB = "vectorstore_ejemplo"
+    CARPETA_DB = "vectorstore/"
     K = 3
     vs = cargar_vectorstore(CARPETA_DB)
 
-    pregunta = "¿Cuántos intentos hace el cliente ante un TimeoutError y cuánto espera entre cada uno?"
+    preguntas = [
+        "¿Cuántos días tengo para devolver un producto de electrónica?",
+        "¿Puedo cancelar mi pedido si ya salió de la central?",
+        "¿Puedo cambiar un producto por otra talla?",
+    ]
+
+    # Paso 1: tres consultas distintas con k=3
+    print("PASO 1: 3 consultas distintas con k=3")
+    for pregunta in preguntas:
+        registro = registrar_consulta(vs, pregunta, K)
+        print(registro)
+        guardar_registro_jsonl(registro)
+
+    # Paso 2: la misma pregunta con k=3 y k=6
+    print("PASO 2: misma pregunta con k=3 y k=6")
+    for k in (3, 6):
+        registro = registrar_consulta(vs, preguntas[0], k)
+        print(registro)
+        guardar_registro_jsonl(registro)
+
+    print("PASO 3: registros guardados en registros_latencia_costo.jsonl")
 
     # tiempos = {}
     # with medir(tiempos, "embed_y_busqueda"):
@@ -142,11 +166,6 @@ if __name__ == "__main__":
     # print("Factor de crecimiento:", round(len(prompt_con_rag) / len(pregunta), 1), "x")
 
     # print("Tiempos:", tiempos)
-
-    registro = registrar_consulta(vs, pregunta, K)
-    print(registro)
-
-    guardar_registro_jsonl(registro)
 
     """
     #Flujo normal:
