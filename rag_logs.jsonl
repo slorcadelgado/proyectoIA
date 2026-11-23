@@ -1,0 +1,5 @@
+{"ts": "2026-11-23T13:08:55", "level": "INFO", "msg": "inicio_cadena", "trace_id": "trace-5782cfbf", "root_run_id": "01a2092a-e3f0-75e8-be26-b91fbfc4ac97"}
+{"ts": "2026-11-23T13:08:55", "level": "INFO", "msg": "retriever_start", "trace_id": "trace-5782cfbf", "run_id": "01a2092a-e3f1-73d1-b960-aafb92268d7d", "parent_run_id": "01a2092a-e3f1-73d1-b960-aafa23b15400", "query_len": 86, "query_hash": "23e2e2ee161b", "meta_trace": "trace-5782cfbf"}
+{"ts": "2026-11-23T13:08:56", "level": "INFO", "msg": "retriever_end", "trace_id": "trace-5782cfbf", "n_documents": 3, "huellas_docs": ["ddaff72e7a78", "7c2b9da406a6", "6fa55197ecd7"]}
+{"ts": "2026-11-23T13:08:56", "level": "INFO", "msg": "llm_start", "trace_id": "trace-5782cfbf", "run_id": "01a2092a-e821-7771-916c-d992e761844c", "parent_run_id": "01a2092a-e3f0-75e8-be26-b91fbfc4ac97", "n_prompts": 1}
+{"ts": "2026-11-23T13:09:47", "level": "INFO", "msg": "llm_end", "trace_id": "trace-5782cfbf", "chars_respuesta": 261, "respuesta_hash": "b7249983077a"}
