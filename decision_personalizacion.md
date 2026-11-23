@@ -16,7 +16,7 @@ Elijo RAG. El problema es de conocimiento: el asistente debe responder con las p
 ## 4. Qué necesitarias para ejecutarla
 Hoy el índice solo tiene cinco documentos de políticas de postventa, indexados en `vectorstore/`. Para el asistente de e-commerce faltaría indexar:
 
-- **Catálogo de productos:** nombre, categoría, descripción y si admite devolución. Cada producto sería un documento con su `fuente`.
+- **Catálogo de productos:** nombre, categoría, descripción y si admite devolución. Precio y disponibilidad no se indexan: se consultan en la base de datos con una herramienta.
 - **Inventario y disponibilidad:** no se indexa. Cambia con frecuencia, así que el asistente lo consulta en la base de datos con una herramienta.
 - **Políticas de envío:** hoy no están en el índice. Son las que faltan para responder preguntas sobre plazos de envío.
 
