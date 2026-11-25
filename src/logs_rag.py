@@ -19,7 +19,7 @@ Contextvars: crea una variable de contexto.
 Parecido a una variable global con la diferencia principal 
 que aisla el valor de cada hilo/tarea asincrónica
 """
-trace_id_var = contextvars.ContextVar("trade_id", default=None)
+trace_id_var = contextvars.ContextVar("trace_id", default=None)
 
 #Transforma el evento de log en un objeto de JSON de una sola línea
 class JsonFormatter(logging.Formatter):
@@ -48,7 +48,7 @@ archivo_handler = RotatingFileHandler(
 )
 archivo_handler.setFormatter(JsonFormatter())
 logger.handlers = [handler, archivo_handler]
-logger.propage = False #Evita que los logs se dupliquen
+logger.propagate = False #Evita que los logs se dupliquen
 
 #No queremos guardar la información en crudo, sino que buscamos "esconderla"
 #Genera una huella (hash sha 256 truncado) para poder detectar duplicados o cambios en mis documentos
